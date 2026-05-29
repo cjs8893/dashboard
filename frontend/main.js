@@ -1,11 +1,11 @@
+// 1. Declare the API endpoint at the absolute top so it initializes instantly
+const BACKEND_API_URL = "https://universal-sql-api.onrender.com/api/execute";
+
+// 2. Initialize your visual workspace layout engine
 const grid = GridStack.init({
     cellHeight: 150,
     acceptWidgets: true
 });
-
-// We will update this address once Render provides our live production link
-//const BACKEND_API_URL = "http://localhost:8000/api/execute"; 
-const BACKEND_API_URL = "https://universal-sql-api.onrender.com/api/execute";
 
 function loadDemoCredentials() {
     // Live read-only portfolio demonstration db hosted on Neon
