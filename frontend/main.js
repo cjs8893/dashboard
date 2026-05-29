@@ -4,7 +4,8 @@ const grid = GridStack.init({
 });
 
 // We will update this address once Render provides our live production link
-const BACKEND_API_URL = "http://localhost:8000/api/execute"; 
+//const BACKEND_API_URL = "http://localhost:8000/api/execute"; 
+const BACKEND_API_URL = "https://universal-sql-api.onrender.com/api/execute";
 
 function loadDemoCredentials() {
     // Live read-only portfolio demonstration db hosted on Neon
