@@ -27,13 +27,13 @@
         <div class="input-group">
             <label>PostgreSQL Connection String</label>
             <input type="text" id="connString" placeholder="postgresql://user:password@host:port/dbname">
-            <button style="margin-top: 8px; background: #28a745;" onclick="loadDemoCredentials()">⚡ Load Demo Portfolio DB</button>
+            <button id="loadDemoBtn" style="margin-top: 8px; background: #28a745;">⚡ Load Demo Portfolio DB</button>
         </div>
         <div class="input-group">
             <label>SQL Query (Column 1 = Label, Column 2 = Value)</label>
             <textarea id="sqlQuery" rows="3">SELECT rating as label, COUNT(*) as value FROM inventory_sample GROUP BY rating;</textarea>
         </div>
-        <button onclick="addNewWidget()">+ Add Chart to Dashboard Canvas</button>
+        <button id="runQueryBtn">+ Add Chart to Dashboard Canvas</button>
     </div>
 
     <div class="grid-stack"></div>
