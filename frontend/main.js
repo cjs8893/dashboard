@@ -20,10 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadDemoCredentials() {
-    // Live read-only portfolio demonstration db hosted on Neon
     const connInput = document.getElementById('connString');
     const queryInput = document.getElementById('sqlQuery');
     
+    // ⚠️ CRITICAL FIX: Replace 'demo_pass_2026' with your actual, verified Neon DB password string if it differs!
     if (connInput) connInput.value = "postgresql://portfolio_user:demo_pass_2026@ep-demo-instance.us-east-1.aws.neon.tech/neondb?sslmode=require";
     if (queryInput) queryInput.value = `SELECT rating as label, COUNT(*) as value FROM inventory_sample GROUP BY rating ORDER BY value DESC;`.trim();
 }
