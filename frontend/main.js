@@ -1,16 +1,31 @@
-// 1. Declare the API endpoint at the absolute top so it initializes instantly
+// 1. Safe Global Settings
 const BACKEND_API_URL = "https://universal-sql-api.onrender.com/api/execute";
+let grid; 
 
-// 2. Initialize your visual workspace layout engine
-const grid = GridStack.init({
-    cellHeight: 150,
-    acceptWidgets: true
+// 2. Wait until the HTML layout is completely compiled by the browser engine
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Initialize your visual layout grid safely
+    grid = GridStack.init({
+        cellHeight: 150,
+        acceptWidgets: true
+    });
+
+    // Wire up your UI buttons programmatically (Removes the need for inline HTML onclicks)
+    const demoBtn = document.getElementById('loadDemoBtn');
+    if (demoBtn) demoBtn.addEventListener('click', loadDemoCredentials);
+
+    const runBtn = document.getElementById('runQueryBtn');
+    if (runBtn) runBtn.addEventListener('click', addNewWidget);
 });
 
 function loadDemoCredentials() {
     // Live read-only portfolio demonstration db hosted on Neon
-    document.getElementById('connString').value = "postgresql://portfolio_user:demo_pass_2026@ep-demo-instance.us-east-1.aws.neon.tech/neondb?sslmode=require";
-    document.getElementById('sqlQuery').value = `SELECT rating as label, COUNT(*) as value FROM inventory_sample GROUP BY rating ORDER BY value DESC;`.trim();
+    const connInput = document.getElementById('connString');
+    const queryInput = document.getElementById('sqlQuery');
+    
+    if (connInput) connInput.value = "postgresql://portfolio_user:demo_pass_2026@ep-demo-instance.us-east-1.aws.neon.tech/neondb?sslmode=require";
+    if (queryInput) queryInput.value = `SELECT rating as label, COUNT(*) as value FROM inventory_sample GROUP BY rating ORDER BY value DESC;`.trim();
 }
 
 async function addNewWidget() {
@@ -55,9 +70,14 @@ async function addNewWidget() {
             </div>
         `;
         
-        grid.load([ {w: 4, h: 2, content: widgetHtml} ]);
+        if (grid) {
+            grid.load([ {w: 4, h: 2, content: widgetHtml} ]);
+        }
         
-        const ctx = document.getElementById(widgetId).getContext('2d');
+        const canvasEl = document.getElementById(widgetId);
+        if (!canvasEl) return;
+        
+        const ctx = canvasEl.getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
